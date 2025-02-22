@@ -1,0 +1,554 @@
+1. Login and signup
+
+a. signup
+
+API :    http://localhost:8080/zomato/user/signup
+Request: POST
+
+{
+    "name" : "aditi",
+    "phonenumber" : "1234567898",
+    "address":"sinhgad Road",
+    "secretquestion" : "what is your pets name?",
+    "answer" : "tom",
+    "password" : "adi"
+}
+
+Response:
+if phonenumber already taken : phone
+if successful : success
+____________________________________________________
+
+b. Login
+
+API:       http://localhost:8080/zomato/user/login
+Request : Post
+
+{
+    "phonenumber":1234567898,
+    "password": "adi"
+}
+
+Response:
+if phonenumber invalid : phone
+if password invalid : password
+if user logged in successfully : success_user
+if admin loggedin successfully : success_admin
+
+____________________________________________________________
+b. Logout
+
+API:       http://localhost:8080/zomato/user/logout
+Request : Post
+
+{
+    "phonenumber":1234567898,
+    
+}
+
+Response:
+	success
+
+____________________________________________________________
+
+
+c. Forgot Password
+	
+	i) API 1:  http://localhost:8080/zomato/user/forgot-password                (this is to get question)
+	Request: Post
+
+	{
+    	      "phonenumber": 1234567898
+	}
+
+	Response:
+	if phonenumber invalid : phone
+	if correct : what is your pets name?
+
+
+	ii) API 2: http://localhost:8080/zomato/user/reset-password
+	Request : Post
+	
+	{
+   	       "phonenumber":1234567898,
+    	        "secretquestion":"ques",
+    	        "answer":"ans",
+                          "newpassword": "a"
+
+	}
+
+	Response:
+	if answer invalid : answer
+	if correct : success
+************************************************************************************
+
+2. Admin Page
+
+a. Add Restaurant
+
+API : http://localhost:8080/zomato/admin/add-restaurant
+Request : Post
+
+{
+    "restaurantname":"JW",
+    "address":"SB Road",
+    "restaurantimages":["link 1","link2"]
+}
+
+Response :
+if restaurant address and name is already taken : address
+if successful : success
+
+________________________________________________________________________________
+
+b. Edit Restaurant
+
+i) API 1: http://localhost:8080/zomato/get-restaurants                           (Landing page)
+Request : GET
+
+Response:
+
+[
+    {
+        "restaurantname": "Sawai",
+        "restaurantid": 3,
+        "restaurantaddress" : "dproad",
+        "restaurantimages": [
+            {
+                "imageid": 6,
+                "link": "abc"
+            },
+            {
+                "imageid": 7,
+                "link": "pqr"
+            }
+        ]
+    },
+    {
+        "restaurantname": "Sagar",
+        "restaurantid": 4,
+        "restaurantaddress" : "dproad",
+        "restaurantimages": [
+            {
+                "imageid": 8,
+                "link": "abc"
+            },
+            {
+                "imageid": 9,
+                "link": "pqr"
+            }
+        ]
+    }
+]
+
+
+ii) API 2 : 	http://localhost:8080/zomato/admin/edit-restaurant
+Request : POST
+
+{
+    "restaurantid": 1,
+    "restaurantname":"V",
+    "address":"navale",
+    "restaurantimages":["abc"]
+}
+
+response:
+
+if restaurant address and name is already taken : address
+if successful : success
+______________________________________________________________________
+
+c. Delete Restaurant
+API : http://localhost:8080/zomato/admin/delete-restaurant
+Request : PoST
+{
+    "restaurantid":1
+}
+
+Response : success
+__________________________________________________________
+
+d. Add food items
+
+API  : http://localhost:8080/zomato/admin/add-fooditems
+Request : POST
+
+{
+    
+    "restaurantid":4,
+    "foodname":"bir",
+    "description":"Spicey",
+    "image":"abc",
+    "price":"100"
+}
+
+Response:
+if food item already add for that restaurant : name
+if successful : success
+
+
+________________________________________________________________________
+
+e. Edit Food Item
+
+i)API 1: http://localhost:8080/zomato/get-fooditems
+Request : POST
+
+{
+    "restaurantid":4
+}
+
+Response:
+[
+    {
+        "fooditemid": 2,
+        "foodname": "chicken",
+        "description": "Spicey",
+        "price": 100,
+        "image": "abc",
+        "fooditemrating": 0.0,
+        "numofrating": 0
+    },
+    {
+        "fooditemid": 4,
+        "foodname": "panner",
+        "description": "Spicey",
+        "price": 100,
+        "image": "abc",
+        "fooditemrating": 0.0,
+        "numofrating": 0
+    }
+]
+
+ii) API 2: http://localhost:8080/zomato/admin/edit-fooditems
+Request : POST
+{
+    "restaurantid":3,
+    "fooditemid":2,
+    "foodname":"chicken",
+    "description":"Sweet",
+    "image":"thr",
+    "price":200
+
+}
+
+Response:
+if entered foodname is already present in menu: name
+else : success
+
+
+__________________________________________________________________
+
+f. Delete Food Item
+API : http://localhost:8080/zomato/admin/delete-fooditem
+Request : PosT
+{
+    "restaurantid":2,
+    "fooditemid":5
+}
+
+Respose: success
+******************************************************************************
+
+3. Restaurants
+
+a. Show restaurants
+API : http://localhost:8080/zomato/get-restaurants
+
+Request : GET
+
+Response:
+
+[
+    {
+        "restaurantname": "Sawai",
+        "restaurantid": 3,
+  "restaurantaddress" : "dproad",
+        "restaurantimages": [
+            {
+                "imageid": 6,
+                "link": "abc"
+            },
+            {
+                "imageid": 7,
+                "link": "pqr"
+            }
+        ]
+    },
+    {
+        "restaurantname": "Sagar",
+        "restaurantid": 4,
+  "restaurantaddress" : "dproad",
+        "restaurantimages": [
+            {
+                "imageid": 8,
+                "link": "abc"
+            },
+            {
+                "imageid": 9,
+                "link": "pqr"
+            }
+        ]
+    }
+]
+
+i) show menu
+
+API : http://localhost:8080/zomato/get-fooditems
+Request : POST
+
+{
+    "restaurantid":4
+}
+
+Response:
+[
+    {
+        "fooditemid": 5,
+        "foodname": "tan",
+        "description": "Spicey",
+        "price": 100,
+        "image": "abc"
+    },
+    {
+        "fooditemid": 6,
+        "foodname": "bir",
+        "description": "Spicey",
+        "price": 100,
+        "image": "abc"
+    }
+]
+
+___________________________________________________________
+
+
+c.get all food items
+API :http://localhost:1010/zomato/user/get-all-food-items
+Request :GET
+Response:
+
+[
+    {
+        "restaurantid": 1,
+        "foodItem": {
+            "fooditemid": 1,
+            "foodname": "chikenmkari",
+            "description": "Spicey",
+            "price": 100,
+            "image": "abc",
+            "fooditemrating": 0.0,
+            "numofrating": 0
+        },
+        "restaurantname": "z"
+    },
+    {
+        "restaurantid": 1,
+        "foodItem": {
+            "fooditemid": 2,
+            "foodname": "chikenmasala",
+            "description": "Spicey",
+            "price": 100,
+            "image": "abc",
+            "fooditemrating": 0.0,
+            "numofrating": 0
+        },
+        "restaurantname": "z"
+    },
+    {
+        "restaurantid": 2,
+        "foodItem": {
+            "fooditemid": 3,
+            "foodname": "chikenmasala",
+            "description": "Spicey",
+            "price": 100,
+            "image": "abc",
+            "fooditemrating": 0.0,
+            "numofrating": 0
+        },
+        "restaurantname": "y"
+    },
+    {
+        "restaurantid": 2,
+        "foodItem": {
+            "fooditemid": 4,
+            "foodname": "chikentadaka",
+            "description": "Spicey",
+            "price": 100,
+            "image": "abc",
+            "fooditemrating": 0.0,
+            "numofrating": 0
+        },
+        "restaurantname": "y"
+    },
+    {
+        "restaurantid": 1,
+        "foodItem": {
+            "fooditemid": 5,
+            "foodname": "chikengavthi",
+            "description": "Spicey",
+            "price": 100,
+            "image": "abc",
+            "fooditemrating": 0.0,
+            "numofrating": 0
+        },
+        "restaurantname": "z"
+    }
+]
+_______________________________________________________________________________________
+
+b. Search by name
+
+API : http://localhost:8080/zomato/user/search-by-name
+Request : POST
+
+{
+    "search":"sa"
+}
+
+Response:
+
+[
+    {
+        "restaurantid": 4,
+        "restaurantname": "Sawai",
+        "restaurantaddress": "dp road",
+        "restaurantrating": 0.0,
+        "numofrating": 0,
+        "restaurantimages": [
+            {
+                "imageid": 7,
+                "link": "abc"
+            },
+            {
+                "imageid": 8,
+                "link": "pqr"
+            }
+        ],
+        "fooditem": [
+            {
+                "fooditemid": 7,
+                "foodname": "panner",
+                "description": "Spicey",
+                "price": 100,
+                "image": "abc",
+                "fooditemrating": 0.0,
+                "numofrating": 0
+            },
+            {
+                "fooditemid": 8,
+                "foodname": "chicken",
+                "description": "Spicey",
+                "price": 100,
+                "image": "abc",
+                "fooditemrating": 0.0,
+                "numofrating": 0
+            }
+        ]
+    }
+]
+
+
+if no restaurant present by given search name : []
+____________________________________________________________
+c.search by fooditem
+
+API : http://localhost:8080/zomato/user/search-by-fooditem
+Request : POST
+{
+    "search": "chi"
+}
+Response:  (In sorted rating order)
+[
+    {
+        "restaurantid": 4,
+        "restaurantname": "Sawai",
+        "restaurantaddress": "dp road",
+        "restaurantrating": 0.0,
+        "fooditem": {
+            "fooditemid": 8,
+            "foodname": "chicken",
+            "description": "Spicey",
+            "price": 100,
+            "image": "abc",
+            "fooditemrating": 0.0,
+            "numofrating": 0
+        }
+    },
+    {
+        "restaurantid": 5,
+        "restaurantname": "malwan",
+        "restaurantaddress": "dp road",
+        "restaurantrating": 0.0,
+        "fooditem": {
+            "fooditemid": 9,
+            "foodname": "chicken",
+            "description": "Spicey",
+            "price": 100,
+            "image": "abc",
+            "fooditemrating": 0.0,
+            "numofrating": 0
+        }
+    }
+]
+
+if no fooditeam present by given search name : []
+
+****************************************************************************
+
+4.Order food
+
+API: http://localhost:8080/zomato/user/place-order
+Request : Post
+
+{
+    "restaurantid": 3,
+    "phonenumber" :"1234567898",
+    "deliveryaddress" : "sinhgad road pune",
+    "totalamount":300,
+    "keycount": 2,
+    "fooditemid": ["7","8"],
+    "foodname":["chikentikka","chikenthali"],
+    "amount":["200","100"],
+    "quantity":["2","2"]
+   
+}
+
+Response: success
+__________________________________________________________________
+5. Add rating
+
+a.give rating 
+API: http://localhost:8080/zomato/user/rate-order
+{
+    "phonenumber":"1234567898",
+    "restaurantid": 1,
+    "restaurantrating" : 3.1,
+    "restaurantreview" : "Very good",
+    "fooditemid":["2","3"],
+    "fooditemrating" : ["3.5","4.5"],
+    "fooditemreview":["good","verygood"]
+}
+
+Restaurant rating and review is compulsory
+for food item if rating is given then review is compulsory
+if food item has no rating request should be
+{
+    "phonenumber":"1234567898",
+    "restaurantid": 1,
+    "restaurantrating" : 3.1,
+    "restaurantreview" : "Very good",
+    "fooditemid":[],
+    "fooditemrating" : [],
+    "fooditemreview":[]
+}
+
+Response:
+success
+_______________________________________________________
+
+
+
+
+
+
+	
